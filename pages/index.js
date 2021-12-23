@@ -4,7 +4,8 @@ export default function Home() {
       <div className="site-container">
         <div className="space-y-4">
           <h1 className="text-2xl font-bold">
-            Ben Andaç erdoğmuş, İstanbul'da yaşıyorum, Front-end developerim.
+            Ben Andaç erdoğmuş, İstanbul&apos;da yaşıyorum, Front-end
+            developerim.
           </h1>
 
           <p>
