@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <>
@@ -9,12 +11,32 @@ export default function Home() {
           </h1>
 
           <p>
-            Integer iaculis bibendum dolor eu venenatis. Fusce risus ipsum,
-            consectetur nec ornare nec, condimentum sit amet mi.
+            Çevre mühendisliği mezunuyum. Hayatıma ilgi duyduğum ve çalışırken
+            mutlu olduğum yazılım sektöründe devam ediyorum.
           </p>
           <p>
-            Pellentesque nec dictum sem. Sed imperdiet tempor magna nec rutrum.
-            Curabitur scelerisque tempus ligula, eu consectetur ipsum.
+            Bu sayfayı yaparken kullandığım teknolojiler şöyle;
+            <strong>
+              <Link href="https://nextjs.org/">
+                <a target="_blank"> Next.js</a>
+              </Link>
+              ,
+              <Link href="https://tailwindcss.com/">
+                <a target="_blank"> Tailwind CSS</a>
+              </Link>
+              ,
+              <Link href="https://auth0.com/">
+                <a target="_blank"> Auth0</a>
+              </Link>
+              ,
+              <Link href="https://upstash.com/">
+                <a target="_blank"> Upstash</a>
+              </Link>
+              ,
+              <Link href="https://www.npmjs.com/package/@next/mdx">
+                <a target="_blank"> MDX</a>
+              </Link>
+            </strong>
           </p>
         </div>
       </div>

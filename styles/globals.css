@@ -10,4 +10,8 @@
   .site-4xl-container {
     @apply max-w-4xl mx-auto;
   }
+
+  strong > a {
+    @apply text-purple-500 hover:text-purple-600;
+  }
 }

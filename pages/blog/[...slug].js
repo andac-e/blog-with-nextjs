@@ -2,13 +2,59 @@ import { getMdxNode, getMdxPaths } from "next-mdx/server";
 import { useHydrate } from "next-mdx/client";
 import { mdxComponents } from "../../components/mdx-components.js";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useState, useEffect } from "react";
+import Form from "../../components/form.js";
+import { DateTime } from "luxon";
 
 export default function PostPage({ post }) {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
+  const [text, textSet] = useState("");
+  const [url, urlSet] = useState(null);
+  const [comments, commentsSet] = useState([]);
+
+  const fetchComment = async () => {
+    const query = new URLSearchParams({ url });
+    const newUrl = `/api/comment?${query.toString()}`;
+    const response = await fetch(newUrl, {
+      method: "GET",
+    });
+    const data = await response.json();
+    commentsSet(data);
+  };
+
+  useEffect(() => {
+    if (url) {
+      return fetchComment();
+    }
+  }, [url]);
+
+  useEffect(() => {
+    const url = window.location.origin + window.location.pathname;
+    urlSet(url);
+  }, []);
 
   const content = useHydrate(post, {
     components: mdxComponents,
   });
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const userToken = await getAccessTokenSilently();
+
+    const response = await fetch("/api/comment", {
+      method: "POST",
+      body: JSON.stringify({ text, userToken, url }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    fetchComment();
+    textSet("");
+  };
+
   return (
     <div className="site-container">
       <article className="prose">
@@ -18,39 +64,31 @@ export default function PostPage({ post }) {
         <div className="prose">{content}</div>
       </article>
 
-      <form className="mt-10">
-        <textarea
-          rows="2"
-          className="border border-gray-300 rounded w-full block px-2 py-1"
-        />
-        <div className="mt-4">
-          {isAuthenticated ? (
-            <div className="flex items-center space-x-2">
-              <button className="bg-indigo-500 text-white px-2 py-1 rounded">
-                Gönder
-              </button>
-              <img src={user.picture} width={32} className="rounded-full" />
-              <span>{user.name}</span>
-              <button
-                typeof="button"
-                onClick={() =>
-                  logout({ returnTo: process.env.NEXT_PUBLIC_URL + "/blog" })
-                }
-              >
-                x
-              </button>
+      <Form onSubmit={onSubmit} textSet={textSet} text={text} />
+
+      <div className="mt-10 space-y-4">
+        {comments.map(({ id, createdAt, text, user }) => {
+          return (
+            <div key={id} className="flex items-center space-x-2">
+              <img
+                src={user.picture}
+                width={40}
+                className="rounded-full"
+                alt={user.name}
+              />
+              <div>
+                <div className="space-x-2">
+                  <b>{user.name}</b>
+                  <time className="text-gray-400">
+                    {DateTime.fromMillis(createdAt).toRelative()}
+                  </time>
+                </div>
+                <p>{text}</p>
+              </div>
             </div>
-          ) : (
-            <button
-              typeof="button"
-              className="bg-indigo-500 text-white px-2 py-1 rounded"
-              onClick={() => loginWithRedirect()}
-            >
-              Giriş yap
-            </button>
-          )}
-        </div>
-      </form>
+          );
+        })}
+      </div>
     </div>
   );
 }
