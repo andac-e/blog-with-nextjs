@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import Header from "../components/header";
 import { Auth0Provider } from "@auth0/auth0-react";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -10,6 +11,19 @@ function MyApp({ Component, pageProps }) {
       redirectUri={process.env.NEXT_PUBLIC_URL}
     >
       <div className="antialiased text-gray-700">
+        <Head>
+          <title>Andaç erdoğmuş</title>
+          <meta name="description" content="Kişisel blog" />
+          <meta property="og:site_name" content="Personal portfolio" />
+          <meta property="og:title" content="personal blog" />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/public/favicon.ico"
+          />
+        </Head>
+
         <Header></Header>
         <main className="mt-6 mb-20">
           <Component {...pageProps} />

@@ -7,6 +7,9 @@ export default function Header() {
         <Link href="/">
           <a>Hakkımda</a>
         </Link>
+        <Link href="/projects">
+          <a>Projelerim</a>
+        </Link>
         <Link href="/blog">
           <a>Blog</a>
         </Link>
