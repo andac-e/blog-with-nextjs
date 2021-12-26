@@ -13,15 +13,10 @@ function MyApp({ Component, pageProps }) {
       <div className="antialiased text-gray-700">
         <Head>
           <title>Andaç erdoğmuş</title>
+          <link rel="shortcut icon" href="/static/favicon.ico" />
           <meta name="description" content="Kişisel blog" />
           <meta property="og:site_name" content="Personal portfolio" />
           <meta property="og:title" content="personal blog" />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/public/favicon.ico"
-          />
         </Head>
 
         <Header></Header>
