@@ -6,7 +6,7 @@ import {
 
 export default function Social() {
   return (
-    <div className="flex items-center space-x-3 md:mt-10">
+    <div className="flex items-center space-x-3 mt-10">
       <a
         href="mailto:andacerdogmus26@gmail.com"
         target={"_blank"}
