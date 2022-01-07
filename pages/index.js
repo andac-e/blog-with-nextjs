@@ -6,18 +6,18 @@ export default function Home() {
     <>
       <div className="site-container">
         <div className="space-y-4">
-          <h1 className="text-2xl font-bold">
-            Ben Andaç erdoğmuş, İstanbul&apos;da yaşıyorum, Front-end
-            developerim.
+          <h1 className="text-2xl">
+            <span role="img" className="mr-3">
+              👋🏼
+            </span>
+            <span className="font-bold">
+              Selam, ben Andaç, Front-end developerim.
+            </span>
           </h1>
 
           <p>
             Çevre mühendisliği mezunuyum. Hayatıma ilgi duyduğum ve çalışırken
             mutlu olduğum yazılım sektöründe devam ediyorum.
-          </p>
-          <p>
-            Bu sayfayı yaparken kullandığım teknolojiler şöyle;
-            <UsedTechnologies />
           </p>
         </div>
         <Social />
